@@ -1,10 +1,10 @@
 name: DBIPROP Change Detector
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   types:
-  #     - forced
+  push:
+    branches:
+      - main
+    types:
+      - forced
   pull_request:
     branches:
       - main
