@@ -5,17 +5,11 @@ on:
       - main
     types:
       - forced
-    paths:
-      - 'transforms/*.js'
-      - 'transforms/*.json'
     pull_request:
       branches:
         - main'
       types:
         - merged
-      paths:
-        - 'transforms/.js'
-        - 'transforms/.json'
 
 
 jobs:
