@@ -1,5 +1,7 @@
 name: DBIPROP Change Detector
 on:
+  schedule:
+    - cron: */10 * * * *
   push:
     branches:
       - main
