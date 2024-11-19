@@ -1,19 +1,13 @@
 name: DBIPROP Change Detector
 on:
   schedule:
-    - cron: */3 * * * *
+    - cron: 0/10 8-17 * * *
   push:
     branches:
       - main
-    types:
-      - forced
-      - pushed
-      - created
   pull_request:
     branches:
       - main
-    types:
-      - merged
 
 
 jobs:
