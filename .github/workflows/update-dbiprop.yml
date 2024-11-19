@@ -3,11 +3,10 @@ on:
   schedule:
     - cron: 0/10 8-17 * * *
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
+    types: [closed]
 
 
 jobs:
