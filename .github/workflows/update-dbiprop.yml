@@ -5,17 +5,11 @@ on:
       - main
     types:
       - forced
-    paths:
-      - 'transforms/*.js'
-      - 'transforms/*.json'
     pull_request:
       branches:
         - main'
       types:
         - merged
-      paths:
-        - 'transforms/.js'
-        - 'transforms/.json'
 
 
 jobs:
@@ -32,8 +26,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Get changed files
-# jq '.pull_request.changed_files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
-# jq '.pull_request.merged_files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
         run: |
           echo "${GITHUB_EVENT_PATH}" > /tmp/event.json
           jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
