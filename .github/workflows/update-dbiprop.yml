@@ -5,11 +5,11 @@ on:
       - main
     types:
       - forced
-    pull_request:
-      branches:
-        - main'
-      types:
-        - merged
+  pull_request:
+    branches:
+      - main'
+    types:
+      - merged
 
 
 jobs:
