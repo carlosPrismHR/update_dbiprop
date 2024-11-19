@@ -5,6 +5,8 @@ on:
       - main
     types:
       - forced
+      - pushed
+      - created
   pull_request:
     branches:
       - main
