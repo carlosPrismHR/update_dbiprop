@@ -1,0 +1,16 @@
+{
+    "name": "@carlosprismhr/update_dbiprop",
+    "description": "",
+    "version": "1.0",
+    "repository": {
+      "type": "git",
+      "url": "git@github.com:carlosPrismHR/update_dbiprop.git"
+    },
+    "author": "Prismhr",
+    "publishConfig": {
+      "registry": "https://npm.pkg.github.com/"
+    },
+    "files": [
+      "transforms/**"
+    ]
+}
