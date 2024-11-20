@@ -25,10 +25,9 @@ jobs:
       - name: Get changed files
       # jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
         run: |
-          echo "${GITHUB_EVENT_PATH}" > /tmp/event.json
-          cat /tmp/event.json
+          cat $GITHUB_EVENT_PATH > /tmp/event.json
       - name: Upload changed files as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: changed-files
           path: /tmp/event.json
