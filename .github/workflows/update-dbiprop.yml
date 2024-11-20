@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: changed-files
-          path: /tmp/changed_files.txt
+          path: /tmp/event.json
