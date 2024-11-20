@@ -23,9 +23,10 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Get changed files
+      # jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
         run: |
-          echo "${github.event}" > /tmp/event.json
-          jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
+          echo "${GITHUB_EVENT_PATH}" > /tmp/event.json
+          cat /tmp/event.json
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v3
         with:
