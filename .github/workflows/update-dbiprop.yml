@@ -26,13 +26,12 @@ jobs:
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed" >> /tmp/event.txt
             if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
               value=$(awk -F'"' '/"file":/{print $4}' "$file")
-              echo "$file is a JSON file and was changed. FILE NAME: $value" >> /tmp/event.txt
+              echo "FILE NAME: $value" >> /tmp/event.txt
               dict_values=$(awk -v RS=',\s*' '/"attributes":/ {flag=1} flag==1 && /"dict":/ {print $3}' "$file" | sed 's/"//g')
               echo "Values of 'dict' attribute for each new attribute: $dict_values" >> /tmp/event.txt
-            else
-              echo "$file was changed" >> /tmp/event.txt
             fi
           done
       - name: Upload changed files as artifact
