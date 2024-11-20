@@ -1,9 +1,5 @@
 name: DBIPROP Change Detector
 on:
-  schedule:
-    - cron: 0/10 8-17 * * *
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
     types: [closed]
