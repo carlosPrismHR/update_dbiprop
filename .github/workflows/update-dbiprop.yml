@@ -30,7 +30,7 @@ jobs:
       # dict_values=$(awk '/"dict":/ {sub(/"/, "", $2); print $2}' "$file")
       # echo "Values of 'dict' attribute for each new attribute: $dict_values" >> /tmp/event.txt
         run: |
-          echo "TEST ECHOOOOOO"
+          echo git diff --name-only ${github.event.before} ${github.event.after}
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
