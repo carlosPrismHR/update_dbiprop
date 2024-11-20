@@ -18,13 +18,21 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: Install dependencies
         run: npm install
-      - name: Get changed files
+      - name: Check if Prisma schema changed
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed" >> /tmp/event.json
+          done
+      # - name: Get changed files
       # jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
       # git diff --name-only ${GITHUB_BASE_REF}..${GITHUB_SHA} > /tmp/event.json
       # echo "Merged branch: $(jq -r '.pull_request.head.ref' $GITHUB_EVENT_PATH)" >> /tmp/changed_files.txt
       # cat $GITHUB_EVENT_PATH > /tmp/event.json
-        run: |
-          git diff --name-only ${GITHUB_BASE_REF}..${GITHUB_SHA} > /tmp/event.json
+        # run: |
+        #   git diff --name-only ${GITHUB_BASE_REF}..${GITHUB_SHA} > /tmp/event.json
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v4
         with:
