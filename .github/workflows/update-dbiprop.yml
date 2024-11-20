@@ -2,7 +2,7 @@ name: DBIPROP Change Detector
 on:
   pull_request:
     branches: [main]
-    types: [opened]
+    types: [closed]
 
 
 jobs:
