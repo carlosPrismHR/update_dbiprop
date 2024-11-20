@@ -2,7 +2,7 @@ name: DBIPROP Change Detector
 on:
   pull_request:
     branches: [main]
-    types: [opened]
+    types: [closed]
 
 
 jobs:
@@ -22,7 +22,6 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v45
       - name: List all changed files
-      # value=$(grep -o '"file": ".*"' "$file" | cut -d'"' -f4)
         run: |
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
