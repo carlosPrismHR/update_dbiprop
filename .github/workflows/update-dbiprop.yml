@@ -29,8 +29,8 @@ jobs:
             if [[ "$file" == *.json ]]; then
               value=$(jq -r '.file' "$file")
               echo "$file is a JSON file and was changed. The value of 'file' is: $value" >> /tmp/event.txt
-          else
-            echo "$file was changed" >> /tmp/event.txt
+            else
+              echo "$file was changed" >> /tmp/event.txt
           done
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v4
