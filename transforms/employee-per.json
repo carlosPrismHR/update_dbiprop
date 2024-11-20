@@ -19,6 +19,10 @@
       "position": 99,
       "transform": "DateTransform"
     },
+    "change_time": {
+      "dict": "CHANGE.TIME",
+      "position": 98
+    },
     "client": {
       "control": "companyId",
       "associatedAttributes": {

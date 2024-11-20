@@ -29,6 +29,10 @@ jobs:
       # cat /tmp/diff.txt >> /tmp/event.txt
       # dict_values=$(awk '/"dict":/ {sub(/"/, "", $2); print $2}' "$file")
       # echo "Values of 'dict' attribute for each new attribute: $dict_values" >> /tmp/event.txt
+      # if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
+      #   value=$(awk -F'"' '/"file":/{print $4}' "$file")
+      #   echo "FILE NAME: $value" >> /tmp/event.txt
+      # fi
         run: |
           git fetch origin
           git diff --name-only $GITHUB_BASE_REF..origin/$GITHUB_HEAD_REF > /tmp/diff.txt
@@ -36,10 +40,7 @@ jobs:
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed" >> /tmp/event.txt
-            if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
-              value=$(awk -F'"' '/"file":/{print $4}' "$file")
-              echo "FILE NAME: $value" >> /tmp/event.txt
-            fi
+            git show $GITHUB_SHA:$file > /tmp/event.txt
           done
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v4
