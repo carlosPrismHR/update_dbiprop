@@ -23,7 +23,7 @@ jobs:
         uses: tj-actions/changed-files@v45
       - name: List all changed files
         run: |
-          git diff --name-only main..HEAD > /tmp/diff.txt
+          git diff --name-only $GITHUB_BASE_REF..$GITHUB_HEAD_REF > /tmp/diff.txt
           cat /tmp/diff.txt >> /tmp/event.txt
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
