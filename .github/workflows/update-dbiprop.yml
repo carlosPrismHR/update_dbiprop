@@ -23,13 +23,13 @@ jobs:
         uses: tj-actions/changed-files@v45
       - name: List all changed files
       # value=$(grep -o '"file": ".*"' "$file" | cut -d'"' -f4)
+      # if [[ "$file" =~ \.json$ ]]; then
+      # else
         run: |
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ "$file" =~ \.json$ ]]; then
               echo "$file is a JSON file and was changed. The value of 'file' is" >> /tmp/event.txt
-            else
               echo "$file was changed" >> /tmp/event.txt
           done
       - name: Upload changed files as artifact
