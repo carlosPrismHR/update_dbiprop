@@ -26,11 +26,12 @@ jobs:
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ "$file" == *.json ]]; then
-              value=$(jq -r '.file' "$file")
+            if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
+              value=$(awk -F'"' '/"file":/{print $4}' "$file")
               echo "$file is a JSON file and was changed. The value of 'file' is: $value" >> /tmp/event.txt
             else
               echo "$file was changed" >> /tmp/event.txt
+            fi
           done
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v4
