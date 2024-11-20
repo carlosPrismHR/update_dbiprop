@@ -40,7 +40,9 @@ jobs:
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed" >> /tmp/event.txt
-            git show $GITHUB_SHA:$file >> /tmp/event.txt
+            if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
+              git show $GITHUB_SHA:$file >> /tmp/event.txt
+            fi
           done
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v4
