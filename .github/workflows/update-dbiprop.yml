@@ -42,7 +42,7 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed" >> /tmp/event.txt
             if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
-              git diff -U0 $GITHUB_BASE_REF..$GITHUB_SHA -- $file | sed -n '/^+/p' | sed 's/^+//' >> /tmp/event.txt
+              git diff -U0 $GITHUB_BASE_REF..$GITHUB_SHA -- $file >> /tmp/event.txt
             fi
           done
       - name: Upload changed files as artifact
