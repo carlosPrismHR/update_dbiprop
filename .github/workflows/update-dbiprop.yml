@@ -23,10 +23,10 @@ jobs:
         uses: tj-actions/changed-files@v45
       - name: List all changed files
         run: |
-          echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.json
-          echo "CHANGED FILES:" >> /tmp/event.json
+          echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
+          echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed" >> /tmp/event.json
+            echo "$file was changed" >> /tmp/event.txt
           done
       # - name: Get changed files
       # jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: changed-files
-          path: /tmp/event.json
+          path: /tmp/event.txt
