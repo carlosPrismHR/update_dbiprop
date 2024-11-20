@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Node.js setup
         uses: actions/setup-node@v3
         with:
@@ -22,15 +25,18 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v45
       - name: List all changed files
+      # git diff --name-only ${github.event.before} ${github.event.after} > /tmp/diff.txt
+      # cat /tmp/diff.txt >> /tmp/event.txt
+      # dict_values=$(awk '/"dict":/ {sub(/"/, "", $2); print $2}' "$file")
+      # echo "Values of 'dict' attribute for each new attribute: $dict_values" >> /tmp/event.txt
         run: |
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
           echo "CHANGED FILES:" >> /tmp/event.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed" >> /tmp/event.txt
             if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
               value=$(awk -F'"' '/"file":/{print $4}' "$file")
-              echo "$file is a JSON file and was changed. The value of 'file' is: $value" >> /tmp/event.txt
-            else
-              echo "$file was changed" >> /tmp/event.txt
+              echo "FILE NAME: $value" >> /tmp/event.txt
             fi
           done
       - name: Upload changed files as artifact
