@@ -30,7 +30,7 @@ jobs:
             if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
               value=$(awk -F'"' '/"file":/{print $4}' "$file")
               echo "FILE NAME: $value" >> /tmp/event.txt
-              dict_values=$(awk '/"attributes":/ {flag=1} flag==1 && /"dict":/ {sub(/"/, "", $3); print $3}' "$file")
+              dict_values=$(awk '/"dict":/ {sub(/"/, "", $2); print $2}' "$file")
               echo "Values of 'dict' attribute for each new attribute: $dict_values" >> /tmp/event.txt
             fi
           done
