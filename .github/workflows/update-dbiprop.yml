@@ -22,8 +22,9 @@ jobs:
       # jq '.pull_request.files[] |.filename' /tmp/event.json > /tmp/changed_files.txt
       # git diff --name-only ${GITHUB_BASE_REF}..${GITHUB_SHA} > /tmp/event.json
       # echo "Merged branch: $(jq -r '.pull_request.head.ref' $GITHUB_EVENT_PATH)" >> /tmp/changed_files.txt
+      # cat $GITHUB_EVENT_PATH > /tmp/event.json
         run: |
-          cat $GITHUB_EVENT_PATH > /tmp/event.json
+          git diff --name-only ${GITHUB_BASE_REF}..${GITHUB_SHA} > /tmp/event.json
       - name: Upload changed files as artifact
         uses: actions/upload-artifact@v4
         with:
