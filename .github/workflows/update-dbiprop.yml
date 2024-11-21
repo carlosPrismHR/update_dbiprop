@@ -44,7 +44,7 @@ jobs:
             echo "$file was changed" >> /tmp/event.txt
             if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
               echo "Added content in $file:" >> /tmp/event.txt
-              changed-files output changed-content --file $file --output - >> /tmp/event.txt
+              cat $file >> /tmp/added-content.txt
             fi
           done
       - name: Upload changed files as artifact
