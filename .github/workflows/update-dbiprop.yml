@@ -35,6 +35,7 @@ jobs:
       # fi
       # git diff --name-only $GITHUB_BASE_REF..origin/$GITHUB_HEAD_REF > /tmp/diff.txt
       # echo "Added content in $file:"
+      # git diff -U0 $GITHUB_BASE_REF..$GITHUB_SHA -- $file >> /tmp/event.txt
         run: |
           git fetch origin
           echo "TICKET: ${GITHUB_HEAD_REF}" >> /tmp/event.txt
@@ -42,7 +43,8 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed" >> /tmp/event.txt
             if [ "$(basename "$file" | cut -d. -f2-)" == "json" ]; then
-              git diff -U0 $GITHUB_BASE_REF..$GITHUB_SHA -- $file >> /tmp/event.txt
+              echo "Added content in $file:" >> /tmp/event.txt
+              changed-files output changed-content --file $file --output - >> /tmp/event.txt
             fi
           done
       - name: Upload changed files as artifact
@@ -50,3 +52,8 @@ jobs:
         with:
           name: changed-files
           path: /tmp/event.txt
+      # - name: Upload added content as artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: added-content
+      #     path: /tmp/added-content.txt
